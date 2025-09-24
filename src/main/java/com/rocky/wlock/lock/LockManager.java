@@ -1,4 +1,4 @@
-package com.rocky.wlock.newlock;
+package com.rocky.wlock.lock;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;

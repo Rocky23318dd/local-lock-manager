@@ -1,9 +1,13 @@
-package com.rocky.wlock.newlock;
+package com.rocky.wlock.test;
 
-import java.security.Timestamp;
+import com.rocky.wlock.lock.LocalLockManager;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * 对比测试
+ */
 public class CompareTest {
     public static void main(String[] args) throws InterruptedException {
         LocalLockManager lockManager = new LocalLockManager();

@@ -1,4 +1,4 @@
-package com.rocky.wlock.newlock;
+package com.rocky.wlock.lock;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -43,10 +43,10 @@ public class LocalLockManager implements LockManager {
 
     @Override
     public void acquire(String key) {
-        if(cache.getIfPresent(key) == null){
+        if (cache.getIfPresent(key) == null) {
             createLockIfNotExist(key);
             acquire(key);
-        }else{
+        } else {
             ResettableLock resettableLock = cache.getIfPresent(key);
             resettableLock.lock();
             if (resettableLock.getStatus() == 1) {
@@ -80,12 +80,12 @@ public class LocalLockManager implements LockManager {
 
     @Override
     public boolean tryAcquire(String key, long timeout, TimeUnit timeUnit) throws InterruptedException {
-        if(cache.getIfPresent(key) == null){
+        if (cache.getIfPresent(key) == null) {
             createLockIfNotExist(key);
-            return tryAcquire(key,timeout,timeUnit);
-        }else{
+            return tryAcquire(key, timeout, timeUnit);
+        } else {
             ResettableLock resettableLock = cache.getIfPresent(key);
-            boolean result = resettableLock.tryLock(timeout,timeUnit);
+            boolean result = resettableLock.tryLock(timeout, timeUnit);
             if (result) {
                 if (!timerTaskMap.containsKey(key)) {
                     refreshKey(key);
@@ -128,8 +128,10 @@ public class LocalLockManager implements LockManager {
     }
 
     public void printInfo() {
+        //清空过期key
+        cache.cleanUp();
+        System.gc();
         System.out.println("key count " + cache.asMap().size());
-        //@TODO timer中的数据去除
         System.out.println("time task count " + timerTaskMap.size());
     }
 }

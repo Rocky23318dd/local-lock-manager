@@ -1,4 +1,4 @@
-package com.rocky.wlock.newlock;
+package com.rocky.wlock.lock;
 
 
 import java.util.concurrent.TimeUnit;
@@ -21,7 +21,7 @@ public class ResettableLock {
      * 解锁入口方法
      */
     public void unlock() {
-        if (Thread.currentThread() != innerSync.getHolderThread() && innerSync.getStatus() == 0) {
+        if (Thread.currentThread() != innerSync.getHolderThread() || innerSync.getStatus() == 0) {
             throw new IllegalMonitorStateException();
         }
         innerSync.release(1);
@@ -112,7 +112,6 @@ public class ResettableLock {
          * 释放锁的核心逻辑，必须重写
          */
         @Override
-        synchronized
         public boolean tryRelease(int arg) {
             if (getState() > 0) {
                 if (compareAndSetState(getState(), getState() - arg) && getState() == 0) {
