@@ -3,7 +3,6 @@ package com.rocky.wlock.test;
 import com.rocky.wlock.lock.LocalLockManager;
 
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * LocalLockManager 多key测试

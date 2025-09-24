@@ -5,7 +5,6 @@ import com.google.common.cache.CacheBuilder;
 import io.netty.util.HashedWheelTimer;
 import io.netty.util.Timeout;
 import io.netty.util.concurrent.DefaultThreadFactory;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 import static com.rocky.wlock.constants.ServiceConstants.LOCK_DEFAULT_CHECK_INTERVAL_SECONDS;
 import static com.rocky.wlock.constants.ServiceConstants.LOCK_DEFAULT_KEY_EXPIRE_TIME_SECONDS;
 
-@Slf4j
 public class LocalLockManager implements LockManager {
     private final Cache<String, ResettableLock> cache;
     private final HashedWheelTimer wheelTimer;

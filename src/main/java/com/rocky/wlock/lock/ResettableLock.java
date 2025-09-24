@@ -1,6 +1,5 @@
 package com.rocky.wlock.lock;
 
-
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
@@ -33,6 +32,7 @@ public class ResettableLock {
     public boolean tryLock(long timeout, TimeUnit unit) throws InterruptedException {
         return innerSync.tryAcquireImmediately() || innerSync.tryAcquireNanos(1, unit.toNanos(timeout));
     }
+
     /**
      * 外部可调用该方法强制释放锁
      *
@@ -68,7 +68,7 @@ public class ResettableLock {
     /**
      * 获取锁状态信息
      */
-    public int getStatus(){
+    public int getStatus() {
         return innerSync.getStatus();
     }
 
